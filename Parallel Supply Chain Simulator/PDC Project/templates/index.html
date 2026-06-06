@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Supply Chain Simulation</title>
+</head>
+<body style="font-family: Arial; text-align: center;">
+
+    <h1>Parallel Supply Chain Simulation</h1>
+
+    <a href="/run">
+        <button style="padding:10px 20px; font-size:16px;">
+            Run Simulation
+        </button>
+    </a>
+
+    {% if results %}
+        <h2>Results:</h2>
+        <p>{{ results }}</p>
+    {% endif %}
+
+    {% if graph %}
+        <h2>Graph:</h2>
+        <img src="{{ url_for('static', filename='graph.png') }}" width="500">
+    {% endif %}
+
+</body>
+</html>
