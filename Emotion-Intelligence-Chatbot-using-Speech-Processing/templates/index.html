@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Emotion Chatbot</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f0f2f5;
+        }
+
+        .chat-box {
+            width: 400px;
+            margin: auto;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .user {
+            text-align: right;
+            margin: 10px;
+        }
+
+        .bot {
+            text-align: left;
+            margin: 10px;
+        }
+
+        .bubble {
+            display: inline-block;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 70%;
+        }
+
+        .user .bubble {
+            background: #0084ff;
+            color: white;
+        }
+
+        .bot .bubble {
+            background: #e4e6eb;
+        }
+
+        form {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="chat-box">
+
+    <h3>Emotion Chatbot 🤖</h3>
+
+    <!-- 🔥 CHAT HISTORY -->
+    <div class="messages">
+        {% if chat_history %}
+            {% for chat in chat_history %}
+                <div class="user">
+                    <div class="bubble">{{ chat.user }}</div>
+                </div>
+
+                <div class="bot">
+                    <div class="bubble">
+                        {{ chat.bot }} <br>
+                        <small>Emotion: {{ chat.emotion }}</small>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <hr>
+
+    <!-- 🔥 FORM -->
+    <form method="POST">
+        <select name="mode" id="mode" onchange="toggleInput()">
+            <option value="text">Text</option>
+            <option value="voice">Voice</option>
+        </select>
+
+        <br><br>
+
+        <!-- TEXT INPUT -->
+        <div id="textInputBox">
+            <input type="text" name="user_text" placeholder="Type message">
+        </div>
+
+        <!-- VOICE MESSAGE -->
+        <div id="voiceMsg" style="display:none;">
+            <p>🎤 Voice mode selected. Click send and speak...</p>
+        </div>
+
+        <button type="submit" id="sendBtn">Send</button>
+    </form>
+
+</div>
+
+<!-- 🔥 JAVASCRIPT -->
+<script>
+function toggleInput() {
+    let mode = document.getElementById("mode").value;
+
+    let textBox = document.getElementById("textInputBox");
+    let voiceMsg = document.getElementById("voiceMsg");
+    let btn = document.getElementById("sendBtn");
+
+    if (mode === "voice") {
+        textBox.style.display = "none";
+        voiceMsg.style.display = "block";
+        btn.innerText = "🎤 Speak";
+    } else {
+        textBox.style.display = "block";
+        voiceMsg.style.display = "none";
+        btn.innerText = "Send";
+    }
+}
+
+// run on load
+window.onload = toggleInput;
+</script>
+
+</body>
+</html>
